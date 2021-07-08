@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 header ("content-type: image/png");
 
 $image = imagecreate(1000, 1000);
@@ -41,11 +42,26 @@ imageline(
   $white
 );
 
-function imagecopymerge_alpha(GdImage $dst_im, GdImage $src_im, int $dst_x, int $dst_y, int $src_x, int $src_y, int $src_w, int $src_h,int $opacite){
+$etoile = imagecreatefrompng("etoile.png");
+
+imagecopymerge_alpha($image, $etoile, 275 - 15, 150 - 15, 0, 0, imagesx($etoile), imagesy($etoile), 100);
+
+function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct){
     $cut = imagecreatetruecolor($src_w, $src_h);
+
     imagecopy($cut, $dst_im, 0, 0, $dst_x, $dst_y, $src_w, $src_h);
+
     imagecopy($cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h);
-    imagecopymerge($dst_im, $cut, $dst_x, $dst_y, 0, 0, $src_w, $src_h, $opacite);
+
+    imagecopymerge($dst_im, $cut, $dst_x, $dst_y, 0, 0, $src_w, $src_h, $pct);
 }
+
+imagecopymerge_alpha($image, $etoile, 350 - 15, 350 - 15, 0, 0, imagesx($etoile), imagesy($etoile), 100);
+
+imagecopymerge_alpha($image, $etoile, 360 - 15, 425 - 15, 0, 0, imagesx($etoile), imagesy($etoile), 100);
+
+imagecopymerge_alpha($image, $etoile, 310 - 15, 625 - 15, 0, 0, imagesx($etoile), imagesy($etoile), 100);
+
+imagecopymerge_alpha($image, $etoile, 650 - 15, 615 - 15, 0, 0, imagesx($etoile), imagesy($etoile), 100);
 
 imagepng($image);
